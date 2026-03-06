@@ -1,0 +1,1018 @@
+{
+  "x-meta": {
+    "title": "EU textile digital product passport — field schema",
+    "version": "0.4.0",
+    "product_group": "textiles",
+    "status": "draft",
+    "status_note": "Textile delegated act pending. Fields marked M2 have an Annex III basis but are not self-executing until the delegated act is adopted.",
+    "regulatory_instrument": "Regulation (EU) 2024/1781 (ESPR)",
+    "primary_sources": [
+      "Reg. (EU) 2024/1781 (ESPR) — Art. 7, 9, 10, 11, 12, 27, 28, 29, 38 and Annex III",
+      "Reg. (EU) 2023/1542 (Battery Regulation) Annex XIII — structural reference",
+      "DIN DKE Spec 99100 v1.2 — structural reference"
+    ]
+  },
+
+  "fields": [
+
+    {
+      "field_id": "1.1",
+      "field_name": "product_identifier",
+      "section": "1. Product identity",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "string",
+      "description": "Persistent unique identifier connecting the physical product to its DPP. Must comply with ISO/IEC 15459 series until harmonised standards are published in the OJEU. Interim standard: GS1 GTIN (ISO/IEC 15459-6). Manufacturer creates; importer or authorised rep creates where manufacturer is non-EU per Art. 29(2)(c) and Art. 34.",
+      "regulatory_basis": ["Art. 9(1)", "Art. 10(1)(a)", "Annex III(a)", "Annex III(c)"]
+    },
+
+    {
+      "field_id": "1.2",
+      "field_name": "data_carrier",
+      "section": "1. Product identity",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "object",
+      "description": "Data carrier linking the physical product to its DPP. Must be physically present on the product, packaging, or accompanying documentation. Art. 10(3): manufacturer must provide dealers and online marketplace providers with a digital copy. Dealer must ensure DPP is accessible to customers per Art. 31(2).",
+      "regulatory_basis": ["Art. 10(1)(b)", "Art. 10(1)(c)", "Annex III(b)"],
+      "properties": {
+        "carrier_type": {
+          "type": "string",
+          "enum": ["qr_code", "data_matrix", "rfid", "nfc", "barcode", "other"],
+          "description": "Type of data carrier. Delegated act will specify required type(s) per product group."
+        },
+        "carrier_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL resolved by the data carrier, linking to the DPP."
+        },
+        "placement": {
+          "type": "string",
+          "enum": ["product", "packaging", "accompanying_documentation"],
+          "description": "Physical location of the data carrier per Art. 10(1)(b)."
+        }
+      }
+    },
+
+    {
+      "field_id": "1.3",
+      "field_name": "product_identification",
+      "section": "1. Product identity",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "object",
+      "description": "Product identification data allowing identification of the specific product or model. Art. 27(5): manufacturer must ensure products bear a type, batch or serial number. Art. 9(2)(d): delegated act specifies whether DPP is at model, batch or item level.",
+      "regulatory_basis": ["Art. 27(5)", "Art. 27(6)(a)", "Annex III(a)"],
+      "properties": {
+        "product_name": {
+          "type": "string",
+          "description": "Commercial product name or model name."
+        },
+        "product_type": {
+          "type": "string",
+          "description": "Product type. E.g. 'T-shirt', 'jacket', 'trousers'."
+        },
+        "batch_number": {
+          "type": "string",
+          "description": "Batch or lot number."
+        },
+        "serial_number": {
+          "type": "string",
+          "description": "Individual item serial number, where DPP is issued at item level."
+        },
+        "model_number": {
+          "type": "string",
+          "description": "Manufacturer model reference."
+        },
+        "dpp_level": {
+          "type": "string",
+          "enum": ["model", "batch", "item"],
+          "description": "Granularity level of this DPP per Art. 9(2)(d)."
+        }
+      }
+    },
+
+    {
+      "field_id": "1.4",
+      "field_name": "global_trade_identification_number",
+      "section": "1. Product identity",
+      "mandate_status": "M2",
+      "required": false,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "string",
+      "description": "GS1 Global Trade Item Number identifying the product at model or SKU level. Interim standard: GS1 GTIN (ISO/IEC 15459-6). Textile delegated act will confirm whether required or optional.",
+      "regulatory_basis": ["Annex III(c)"]
+    },
+
+    {
+      "field_id": "1.5",
+      "field_name": "commodity_code",
+      "section": "1. Product identity",
+      "mandate_status": "M2",
+      "required": false,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "string",
+      "description": "TARIC commodity code per EU Combined Nomenclature. Used by customs authorities for classification and registry verification. Art. 13(1): registry must store commodity code for products released for free circulation. Manufacturer provides; importer confirms at customs entry per Union Customs Code Art. 60.",
+      "regulatory_basis": ["Annex III(d)", "Art. 13(1)"]
+    },
+
+    {
+      "field_id": "1.6",
+      "field_name": "user_manuals_and_safety_information",
+      "section": "1. Product identity",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "object",
+      "description": "Digital instructions covering use, maintenance, repair and end-of-life handling. Art. 27(7): manufacturer must include digital instructions in DPP and maintain accessibility for 10 years after market placement. Importer ensures availability per Art. 29(4); dealer ensures customer access per Art. 31(1).",
+      "regulatory_basis": ["Art. 7(2)(b)(ii)", "Art. 27(7)", "Art. 29(4)"],
+      "properties": {
+        "care_instructions": {
+          "type": "string",
+          "description": "Washing, drying, ironing and care instructions."
+        },
+        "repair_instructions_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to repair guidance."
+        },
+        "end_of_life_instructions": {
+          "type": "string",
+          "description": "Instructions for return, recycling or disposal at end of life."
+        },
+        "language_codes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "ISO 639-1 codes for languages in which instructions are available."
+        },
+        "accessible_until": {
+          "type": "string",
+          "format": "date",
+          "description": "Date until which digital instructions are guaranteed accessible. Minimum 10 years after market placement per Art. 27(7)."
+        }
+      }
+    },
+
+    {
+      "field_id": "1.7",
+      "field_name": "dpp_service_provider_reference",
+      "section": "1. Product identity",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "object",
+      "description": "Reference to the DPP service provider storing the back-up copy of this DPP. Art. 10(4): the economic operator placing the product on market must make a back-up copy available through a DPP service provider. Art. 11(e): DPP must remain available after insolvency or cessation of activity of the responsible operator. Note: DPP service providers are a distinct actor category — see responsibility matrix.",
+      "regulatory_basis": ["Art. 10(4)", "Art. 11(c)", "Art. 11(e)"],
+      "properties": {
+        "provider_name": {
+          "type": "string",
+          "description": "Name of the DPP service provider."
+        },
+        "backup_dpp_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the back-up DPP copy held by the service provider per Art. 10(4)."
+        }
+      }
+    },
+
+    {
+      "field_id": "2.1",
+      "field_name": "operator_identifiers",
+      "section": "2. Actors",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "array",
+      "description": "Unique operator identifiers for all economic operators associated with this DPP. Must include the manufacturer at minimum. Importer, authorised rep and EU responsible person are conditional on their involvement. Art. 12(2): where no operator identifier exists, the DPP creator must request one on behalf of the actor. Interim standard: GS1 GLN (ISO/IEC 15459-4).",
+      "regulatory_basis": ["Art. 27(6)", "Art. 29(3)", "Art. 12(2)", "Annex III(g)", "Annex III(h)", "Annex III(j)", "Annex III(k)"],
+      "items": {
+        "type": "object",
+        "required": ["operator_role", "operator_name", "unique_operator_identifier"],
+        "properties": {
+          "operator_role": {
+            "type": "string",
+            "enum": ["manufacturer", "importer", "authorised_representative", "eu_responsible_person", "dpp_service_provider"],
+            "description": "Role per ESPR Art. 2(42)-(55) and Annex III(g)-(k)."
+          },
+          "operator_name": {
+            "type": "string",
+            "description": "Registered trade name or trademark."
+          },
+          "unique_operator_identifier": {
+            "type": "string",
+            "description": "Unique operator identifier per Annex III(h). Interim standard: GS1 GLN (ISO/IEC 15459-4)."
+          },
+          "postal_address": {
+            "type": "string",
+            "description": "Single postal contact point per Art. 27(6)."
+          },
+          "electronic_contact": {
+            "type": "string",
+            "description": "Email address or web contact form URL."
+          },
+          "eori_number": {
+            "type": "string",
+            "description": "EORI number. Required for importers per Annex III(j)."
+          }
+        }
+      }
+    },
+
+    {
+      "field_id": "2.2",
+      "field_name": "manufacturer_contact_details",
+      "section": "2. Actors",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "object",
+      "description": "Manufacturer contact details as they must appear on the public part of the DPP. Note: a brand that commissions all production from third-party factories but markets under its own trademark is the manufacturer per Art. 2(42) — see responsibility matrix. Art. 27(9): manufacturer must make publicly available communication channels for complaints about non-conformity.",
+      "regulatory_basis": ["Art. 27(6)(a)", "Art. 27(9)"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Registered trade name or trademark."
+        },
+        "postal_address": {
+          "type": "string",
+          "description": "Single postal contact point per Art. 27(6)."
+        },
+        "electronic_contact": {
+          "type": "string",
+          "description": "Email address or web contact form URL."
+        },
+        "complaints_channel_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of publicly available complaints channel per Art. 27(9)."
+        }
+      }
+    },
+
+    {
+      "field_id": "2.3",
+      "field_name": "unique_facility_identifiers",
+      "section": "2. Actors",
+      "mandate_status": "M2",
+      "required": false,
+      "access_tier": "legitimate_interest",
+      "data_behaviour": "static",
+      "type": "array",
+      "description": "Unique facility identifiers for locations in the product's value chain. Compiled by the manufacturer; data provided by supply chain actors per Art. 38 when invoked by the delegated act. Art. 12(3): where no facility identifier exists, DPP creator must request one. Interim standard: GS1 GLN (ISO/IEC 15459-4).",
+      "regulatory_basis": ["Annex III(i)", "Art. 12(3)", "Art. 38"],
+      "items": {
+        "type": "object",
+        "required": ["stage", "facility_name", "country"],
+        "properties": {
+          "stage": {
+            "type": "string",
+            "enum": ["raw_material_processing", "spinning", "weaving_knitting", "dyeing_finishing", "cut_make_trim", "final_assembly", "other"],
+            "description": "Production stage performed at this facility."
+          },
+          "facility_name": {
+            "type": "string",
+            "description": "Trading name of the facility."
+          },
+          "unique_facility_identifier": {
+            "type": "string",
+            "description": "Unique facility identifier per Annex III(i). Interim standard: GS1 GLN."
+          },
+          "country": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code."
+          },
+          "address": {
+            "type": "string",
+            "description": "Street address of the facility."
+          },
+          "tier": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Supply chain tier. Tier 1 = direct supplier to brand."
+          }
+        }
+      }
+    },
+
+    {
+      "field_id": "3.1",
+      "field_name": "fibre_composition",
+      "section": "3. Material composition",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "array",
+      "description": "Full fibre composition by weight percentage using Reg. (EU) 1007/2011 Annex I nomenclature. Where composition varies by component (e.g. shell vs lining), separate entries per component are required. Manufacturer compiles from data provided by fabric mills and spinners per Art. 38 when invoked.",
+      "regulatory_basis": ["Art. 7(2)(b)(i)", "Annex I(f)", "Reg. (EU) 1007/2011"],
+      "items": {
+        "type": "object",
+        "required": ["fibre_type", "percentage"],
+        "properties": {
+          "fibre_type": {
+            "type": "string",
+            "description": "Fibre type per Reg. (EU) 1007/2011 Annex I. E.g. 'cotton', 'polyester', 'wool'."
+          },
+          "percentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Weight percentage. Percentages must sum to 100% within each component scope."
+          },
+          "component": {
+            "type": "string",
+            "description": "Product component this entry relates to, where composition varies. E.g. 'shell', 'lining', 'padding'."
+          },
+          "is_recycled": {
+            "type": "boolean",
+            "description": "True if this fibre is recycled. Detailed recycled content data captured in field 3.2."
+          }
+        }
+      }
+    },
+
+    {
+      "field_id": "3.2",
+      "field_name": "recycled_content",
+      "section": "3. Material composition",
+      "mandate_status": "M2",
+      "required": false,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "array",
+      "description": "Recycled content declarations by material stream. Data originates with material suppliers; manufacturer compiles. Textile delegated act will specify required granularity and verification standards.",
+      "regulatory_basis": ["Annex I(d)"],
+      "items": {
+        "type": "object",
+        "required": ["material", "recycled_percentage"],
+        "properties": {
+          "material": {
+            "type": "string",
+            "description": "Material or fibre type. E.g. 'polyester', 'nylon'."
+          },
+          "recycled_percentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Weight percentage of recycled content for this material."
+          },
+          "recycled_source": {
+            "type": "string",
+            "enum": ["post_consumer", "post_industrial", "mixed", "unknown"],
+            "description": "Origin of the recycled material."
+          },
+          "verification_standard": {
+            "type": "string",
+            "description": "Third-party certification standard. E.g. 'GRS 4.0', 'RCS 2.0'."
+          },
+          "certificate_id": {
+            "type": "string",
+            "description": "Certificate or transaction certificate ID issued by the certifying body."
+          }
+        }
+      }
+    },
+
+    {
+      "field_id": "3.3",
+      "field_name": "raw_material_origin",
+      "section": "3. Material composition",
+      "mandate_status": "M3",
+      "required": false,
+      "access_tier": "legitimate_interest",
+      "data_behaviour": "static",
+      "type": "array",
+      "description": "Country and region of origin for raw material inputs. Mandate derives from EUDR (Reg. (EU) 2023/1115) for in-scope commodities (cotton, natural rubber, leather), not directly from ESPR. Manufacturer and importer are EUDR due diligence responsible entities. Farm or source IDs recommended for high-risk origins.",
+      "regulatory_basis": ["Reg. (EU) 2023/1115 (EUDR) Art. 3", "ESPR Art. 5(1)(e)"],
+      "items": {
+        "type": "object",
+        "required": ["material", "country_of_origin"],
+        "properties": {
+          "material": {
+            "type": "string",
+            "description": "Raw material name. E.g. 'cotton lint', 'wool fibre', 'viscose pulp'."
+          },
+          "country_of_origin": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code."
+          },
+          "region": {
+            "type": "string",
+            "description": "Sub-national region where relevant for traceability. E.g. 'Gujarat', 'Xinjiang'. Recommended for high-risk materials."
+          },
+          "farm_or_source_id": {
+            "type": "string",
+            "description": "Farm or source facility identifier. Relevant for EUDR-in-scope materials."
+          }
+        }
+      }
+    },
+
+    {
+      "field_id": "4.1",
+      "field_name": "supply_chain",
+      "section": "4. Supply chain",
+      "mandate_status": "M2",
+      "required": false,
+      "access_tier": "legitimate_interest",
+      "data_behaviour": "static",
+      "type": "array",
+      "description": "Traceability data covering the full production supply chain from raw material processing to final assembly. Manufacturer compiles; each supply chain actor provides its own facility data per Art. 38 when invoked. Access tier: legitimate_interest — full supply chain data typically restricted due to commercial sensitivity. Forced Labour Regulation (EU) 2024/3015 adds facility-level disclosure obligations from 2027.",
+      "regulatory_basis": ["Annex III(i)", "Art. 38", "Reg. (EU) 2024/3015"],
+      "items": {
+        "type": "object",
+        "required": ["stage", "facility_name", "country"],
+        "properties": {
+          "stage": {
+            "type": "string",
+            "enum": ["raw_material_processing", "spinning", "weaving_knitting", "dyeing_finishing", "cut_make_trim", "final_assembly", "other"],
+            "description": "Production stage performed at this facility."
+          },
+          "facility_name": {
+            "type": "string",
+            "description": "Trading name of the facility."
+          },
+          "unique_facility_identifier": {
+            "type": "string",
+            "description": "Unique facility identifier. Interim standard: GS1 GLN (ISO/IEC 15459-4)."
+          },
+          "country": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code."
+          },
+          "address": {
+            "type": "string",
+            "description": "Street address of the facility."
+          },
+          "tier": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Supply chain tier. Tier 1 = direct supplier to brand."
+          }
+        }
+      }
+    },
+
+    {
+      "field_id": "4.2",
+      "field_name": "country_of_manufacture",
+      "section": "4. Supply chain",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code of the country of last substantial transformation per Union Customs Code Art. 60 rules of origin. This is not necessarily where all processing occurred. Manufacturer provides; importer may confirm at customs entry.",
+      "regulatory_basis": ["Art. 27(5)", "Annex III(d)", "Union Customs Code Art. 60"]
+    },
+
+    {
+      "field_id": "5.1",
+      "field_name": "carbon_footprint",
+      "section": "5. Environmental performance",
+      "mandate_status": "M2",
+      "required": false,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "object",
+      "description": "Product carbon footprint in kg CO2 equivalent per unit. Annex I(h) establishes carbon footprint as a required product parameter; textile delegated act will specify calculation methodology and scope boundaries. Supply chain actors provide upstream activity data; manufacturer commissions or calculates the assessment.",
+      "regulatory_basis": ["Annex I(h)", "Art. 7(2)(b)(i)"],
+      "properties": {
+        "total_kgco2e": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total carbon footprint in kg CO2 equivalent."
+        },
+        "calculation_methodology": {
+          "type": "string",
+          "description": "Standard used. E.g. 'PEF Category Rules for Apparel and Footwear', 'ISO 14067:2018'."
+        },
+        "scope_boundary": {
+          "type": "string",
+          "enum": ["cradle_to_gate", "cradle_to_grave", "cradle_to_retailer"],
+          "description": "System boundary of the carbon footprint calculation."
+        },
+        "reference_year": {
+          "type": "integer",
+          "description": "Year to which the carbon footprint data relates."
+        },
+        "third_party_verified": {
+          "type": "boolean",
+          "description": "Whether the carbon footprint has been independently verified."
+        }
+      }
+    },
+
+    {
+      "field_id": "5.2",
+      "field_name": "water_use",
+      "section": "5. Environmental performance",
+      "mandate_status": "M2",
+      "required": false,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "object",
+      "description": "Total water use associated with the product's production in litres per unit. Textile production is among the most water-intensive industries globally — this field is highly likely to feature in the textile delegated act. Supply chain actors provide upstream water consumption data per Art. 38 when invoked.",
+      "regulatory_basis": ["Annex I(h)"],
+      "properties": {
+        "total_litres": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total water use in litres per unit."
+        },
+        "calculation_methodology": {
+          "type": "string",
+          "description": "Standard used. E.g. 'ISO 14046:2014'."
+        },
+        "scope_boundary": {
+          "type": "string",
+          "enum": ["cradle_to_gate", "cradle_to_grave", "cradle_to_retailer"],
+          "description": "System boundary of the water use calculation."
+        }
+      }
+    },
+
+    {
+      "field_id": "6.1",
+      "field_name": "substances_of_concern",
+      "section": "6. Substances",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "array",
+      "description": "All substances of concern present in the product per ESPR Art. 7(5). Manufacturer is solely responsible for accuracy. CAS-level data must be sourced from chemical supplier Safety Data Sheets. Critical data gap: Tier 2-4 chemical suppliers rarely hold or share CAS-level substance data today. SVHC cannot be exempted if present above 0.1% w/w (1000 ppm) per Art. 7(6)(b). Art. 38 (when invoked): chemical suppliers and dye houses must provide substance data upon request.",
+      "regulatory_basis": ["Art. 7(5)", "Art. 7(6)", "Annex III(f)"],
+      "items": {
+        "type": "object",
+        "required": ["substance_name", "espr_category"],
+        "properties": {
+          "substance_name": {
+            "type": "string",
+            "description": "IUPAC name, or another international name where IUPAC is unavailable. Art. 7(5)(a)(i)."
+          },
+          "other_names": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Usual name, trade name or abbreviation. Art. 7(5)(a)(ii)."
+          },
+          "cas_number": {
+            "type": "string",
+            "description": "CAS Registry Number. Art. 7(5)(a)(iv). Must come from chemical supplier Safety Data Sheet."
+          },
+          "ec_number": {
+            "type": "string",
+            "description": "European Community number (EINECS, ELINCS, NLP or ECHA-assigned). Art. 7(5)(a)(iii)."
+          },
+          "location_in_product": {
+            "type": "string",
+            "description": "Component or part in which the substance is present. Art. 7(5)(b)."
+          },
+          "concentration_ppm": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Concentration in parts per million (mg/kg). Art. 7(5)(c). REACH floor: 1000 ppm for SVHC."
+          },
+          "espr_category": {
+            "type": "string",
+            "enum": ["substance_of_concern", "svhc", "hazardous_substance", "other"],
+            "description": "Classification under ESPR Art. 2(27)."
+          },
+          "safe_use_instructions": {
+            "type": "string",
+            "description": "Instructions for safe use in relation to this substance. Art. 7(5)(d)."
+          },
+          "end_of_life_handling": {
+            "type": "string",
+            "description": "Information relevant for disassembly, recycling and end-of-life management. Art. 7(5)(e)."
+          }
+        }
+      }
+    },
+
+    {
+      "field_id": "6.2",
+      "field_name": "restricted_substances_compliance",
+      "section": "6. Substances",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "object",
+      "description": "Declaration of compliance with REACH restricted substances list and any additional RSL requirements. Manufacturer responsible for compliance; importer must verify before placing on EU market per Art. 29(1).",
+      "regulatory_basis": ["Art. 29(1)", "Reg. (EC) 1907/2006 (REACH)"],
+      "properties": {
+        "reach_compliant": {
+          "type": "boolean",
+          "description": "Declaration of compliance with REACH Annex XVII restrictions."
+        },
+        "rsl_standard": {
+          "type": "string",
+          "description": "Additional RSL standard applied. E.g. 'ZDHC MRSL 3.1', 'bluesign RSL', 'OEKO-TEX RSL'."
+        },
+        "test_report_reference": {
+          "type": "string",
+          "description": "Reference to the RSL test report supporting this declaration."
+        },
+        "tested_by": {
+          "type": "string",
+          "description": "Name of the accredited laboratory that conducted RSL testing."
+        },
+        "test_date": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date of the most recent RSL test."
+        }
+      }
+    },
+
+    {
+      "field_id": "7.1",
+      "field_name": "durability",
+      "section": "7. Circularity",
+      "mandate_status": "M2",
+      "required": false,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "object",
+      "description": "Durability performance data covering pilling resistance, colourfastness and tensile strength. Manufacturer responsible per Art. 5(1)(a) and Annex I(a). Results from accredited testing laboratories. Textile delegated act will specify required test methods and minimum thresholds — ISO 12945 (pilling) and ISO 105 series (colourfastness) are the most likely candidates.",
+      "regulatory_basis": ["Art. 5(1)(a)", "Art. 7(2)(b)(i)", "Annex I(a)"],
+      "properties": {
+        "pilling_resistance": {
+          "type": "object",
+          "properties": {
+            "score": { "type": "integer", "minimum": 1, "maximum": 5 },
+            "test_method": { "type": "string", "description": "E.g. 'ISO 12945-2:2020'." },
+            "test_cycles": { "type": "integer" }
+          }
+        },
+        "colourfastness_washing": {
+          "type": "object",
+          "properties": {
+            "score": { "type": "integer", "minimum": 1, "maximum": 5 },
+            "test_method": { "type": "string", "description": "E.g. 'ISO 105-C06:2010'." }
+          }
+        },
+        "colourfastness_rubbing": {
+          "type": "object",
+          "properties": {
+            "dry_score": { "type": "integer", "minimum": 1, "maximum": 5 },
+            "wet_score": { "type": "integer", "minimum": 1, "maximum": 5 },
+            "test_method": { "type": "string", "description": "E.g. 'ISO 105-X12:2016'." }
+          }
+        },
+        "expected_lifetime_washes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Expected product lifetime in number of wash cycles."
+        }
+      }
+    },
+
+    {
+      "field_id": "7.2",
+      "field_name": "repairability",
+      "section": "7. Circularity",
+      "mandate_status": "M2",
+      "required": false,
+      "access_tier": "public",
+      "data_behaviour": "dynamic",
+      "type": "object",
+      "description": "Repairability information including spare parts availability and repair instructions. Dynamic field: manufacturer sets initial data; professional repairers and independent operators may update spare parts availability and instructions post-sale per Art. 9(2)(g). Art. 11(b) explicitly lists these actors among those with DPP update rights. Textile delegated act specifies exact update rights.",
+      "regulatory_basis": ["Art. 5(1)(b)", "Art. 7(2)(b)(ii)", "Art. 9(2)(g)", "Art. 11(b)", "Annex I(b)"],
+      "properties": {
+        "repairability_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Repairability score on a 0-10 scale, where defined by delegated act."
+        },
+        "spare_parts_available": {
+          "type": "boolean",
+          "description": "Whether spare parts (e.g. buttons, zips, patches) are available for purchase."
+        },
+        "spare_parts_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to spare parts catalogue or ordering page."
+        },
+        "repair_instructions_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to repair instructions or technical repair documentation."
+        },
+        "repair_network_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to authorised or recommended repair network."
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date of most recent update to this field."
+        },
+        "updated_by": {
+          "type": "string",
+          "description": "Actor that last updated this field. E.g. 'manufacturer', 'independent_operator'."
+        }
+      }
+    },
+
+    {
+      "field_id": "7.3",
+      "field_name": "end_of_life",
+      "section": "7. Circularity",
+      "mandate_status": "M2",
+      "required": false,
+      "access_tier": "public",
+      "data_behaviour": "dynamic",
+      "type": "object",
+      "description": "End-of-life handling information for treatment facilities and consumers. Dynamic field: manufacturer creates initial data; independent operators including recyclers and waste managers may update take-back and sorting information post-sale per Art. 9(2)(g). Art. 2(47) explicitly includes waste management operators in the definition of independent operator.",
+      "regulatory_basis": ["Art. 7(2)(b)(ii)", "Art. 7(2)(b)(iii)", "Art. 9(2)(g)", "Art. 2(47)", "Annex I(e)"],
+      "properties": {
+        "recyclability_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Estimated recyclability rate as a percentage of product weight."
+        },
+        "disassembly_instructions": {
+          "type": "string",
+          "description": "Instructions for disassembly to facilitate sorting and recycling. Art. 7(2)(b)(iii)."
+        },
+        "take_back_scheme_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to manufacturer or retailer take-back or collection scheme."
+        },
+        "waste_sorting_code": {
+          "type": "string",
+          "description": "Waste sorting classification code relevant to end-of-life handling."
+        },
+        "contains_non_recyclable_components": {
+          "type": "boolean",
+          "description": "Whether the product contains components that cannot currently be recycled."
+        },
+        "non_recyclable_components_description": {
+          "type": "string",
+          "description": "Description of non-recyclable components, where present."
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date of most recent update."
+        },
+        "updated_by": {
+          "type": "string",
+          "description": "Actor that last updated this field."
+        }
+      }
+    },
+
+    {
+      "field_id": "8.1",
+      "field_name": "certifications",
+      "section": "8. Compliance & certs",
+      "mandate_status": "M3",
+      "required": false,
+      "access_tier": "public",
+      "data_behaviour": "dynamic",
+      "type": "array",
+      "description": "Product-level and facility-level certifications relevant to this product. Annex III permits voluntary labels and certifications to be included in the DPP. Dynamic: certificates must be updated when renewed or withdrawn. Manufacturer adds product-level certs; supply chain actors provide facility-level certs.",
+      "regulatory_basis": ["Annex III — voluntary labels"],
+      "items": {
+        "type": "object",
+        "required": ["standard_name", "certificate_id", "issued_by"],
+        "properties": {
+          "standard_name": {
+            "type": "string",
+            "description": "Certification standard name. E.g. 'GOTS 7.0', 'OEKO-TEX STANDARD 100', 'GRS 4.0'."
+          },
+          "certificate_id": {
+            "type": "string",
+            "description": "Certificate number issued by the certifying body."
+          },
+          "issued_by": {
+            "type": "string",
+            "description": "Name of the certifying body."
+          },
+          "valid_from": {
+            "type": "string",
+            "format": "date",
+            "description": "ISO 8601 date from which the certificate is valid."
+          },
+          "valid_until": {
+            "type": "string",
+            "format": "date",
+            "description": "ISO 8601 date on which the certificate expires."
+          },
+          "scope": {
+            "type": "string",
+            "enum": ["product", "facility", "transaction"],
+            "description": "Whether this certificate applies to the product, a supply chain facility, or a specific transaction."
+          },
+          "certificate_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the publicly verifiable certificate record."
+          }
+        }
+      }
+    },
+
+    {
+      "field_id": "8.2",
+      "field_name": "conformity_declarations",
+      "section": "8. Compliance & certs",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "authorities",
+      "data_behaviour": "static",
+      "type": "array",
+      "description": "EU declarations of conformity per Art. 27(2). Access tier: authorities — not required to be publicly accessible per ESPR access rights framework. Manufacturer draws up and retains for 10 years per Art. 27(3). Authorised rep keeps copies per Art. 28(2)(a). Importer verifies existence before placing on market per Art. 29(2)(a).",
+      "regulatory_basis": ["Art. 27(2)", "Art. 27(3)", "Art. 28(2)(a)", "Art. 29(2)(a)", "Art. 44"],
+      "items": {
+        "type": "object",
+        "required": ["declaration_type", "issued_by", "issue_date"],
+        "properties": {
+          "declaration_type": {
+            "type": "string",
+            "description": "Type of declaration. E.g. 'EU declaration of conformity', 'REACH compliance declaration'."
+          },
+          "issued_by": {
+            "type": "string",
+            "description": "Name of the economic operator or testing body that issued the declaration."
+          },
+          "issue_date": {
+            "type": "string",
+            "format": "date",
+            "description": "ISO 8601 date of issue."
+          },
+          "document_reference": {
+            "type": "string",
+            "description": "Internal or external document reference number."
+          },
+          "document_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the declaration document, where publicly available."
+          }
+        }
+      }
+    },
+
+    {
+      "field_id": "8.3",
+      "field_name": "social_compliance",
+      "section": "8. Compliance & certs",
+      "mandate_status": "M3",
+      "required": false,
+      "access_tier": "public",
+      "data_behaviour": "dynamic",
+      "type": "object",
+      "description": "Social compliance declaration and supporting evidence. Mandate derives from CSDDD (Reg. (EU) 2024/1760), not ESPR. Dynamic: audit evidence must be updated annually. Manufacturer or importer provides declaration as CSDDD responsible entity; supply chain actors provide audit evidence.",
+      "regulatory_basis": ["Reg. (EU) 2024/1760 (CSDDD)"],
+      "properties": {
+        "csddd_due_diligence_conducted": {
+          "type": "boolean",
+          "description": "Whether CSDDD due diligence obligations have been fulfilled for this product's supply chain."
+        },
+        "social_audit_standard": {
+          "type": "string",
+          "description": "Social audit standard used. E.g. 'SMETA 4-Pillar', 'SA8000', 'amfori BSCI'."
+        },
+        "audit_date": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date of most recent social audit."
+        },
+        "audit_body": {
+          "type": "string",
+          "description": "Name of the auditing body that conducted the social audit."
+        }
+      }
+    },
+
+    {
+      "field_id": "9.1",
+      "field_name": "lifecycle_status",
+      "section": "9. Lifecycle status",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "dynamic",
+      "type": "object",
+      "description": "Current lifecycle status of this product unit. Dynamic field: manufacturer sets initial status; professional repairers and independent operators update after repair, refurbishment or repurposing per Art. 9(2)(g). Art. 11(d): where a new DPP is created following a lifecycle intervention, it must link to the original. Art. 2(47) includes refurbishers, repairers and waste management operators in the definition of independent operator.",
+      "regulatory_basis": ["Art. 9(2)(g)", "Art. 11(d)", "Art. 2(47)"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["new", "repaired", "refurbished", "repurposed", "remanufactured", "second_hand", "end_of_life"],
+          "description": "Current lifecycle status. Textile delegated act will define the applicable set — battery passport uses 'original', 'repurposed', 're-used', 'remanufactured', 'waste' as reference."
+        },
+        "status_date": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date on which the current status was set."
+        },
+        "intervention_description": {
+          "type": "string",
+          "description": "Description of the repair, refurbishment or other lifecycle intervention that triggered the status change."
+        },
+        "updated_by": {
+          "type": "string",
+          "description": "Actor that set the current status. E.g. 'manufacturer', 'professional_repairer', 'independent_operator'."
+        },
+        "previous_dpp_reference": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI of the original or previous DPP, where this DPP was created following a lifecycle intervention per Art. 11(d)."
+        }
+      }
+    },
+
+    {
+      "field_id": "10.1",
+      "field_name": "dpp_metadata",
+      "section": "10. DPP metadata",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "dynamic",
+      "type": "object",
+      "description": "Metadata about this DPP instance. Art. 9(1): data must be accurate, complete and up to date. Art. 10(1)(d): all data based on open standards, interoperable and machine-readable. Art. 11(g): data authentication, reliability and integrity obligation.",
+      "regulatory_basis": ["Art. 9(1)", "Art. 10(1)(d)", "Art. 11(g)"],
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "description": "Version of this schema used to create this DPP instance. E.g. '0.4.0'."
+        },
+        "dpp_created_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 datetime at which this DPP was first created."
+        },
+        "dpp_last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 datetime of the most recent update to any field in this DPP."
+        },
+        "responsible_economic_operator": {
+          "type": "string",
+          "description": "Name of the economic operator responsible for this DPP per Art. 10(4). Typically the manufacturer."
+        },
+        "language": {
+          "type": "string",
+          "description": "ISO 639-1 language code of the primary language of this DPP."
+        },
+        "registry_unique_registration_identifier": {
+          "type": "string",
+          "description": "Unique registration identifier issued by the EU DPP registry upon upload per Art. 13(5). Populated after registry submission."
+        }
+      }
+    },
+
+    {
+      "field_id": "10.2",
+      "field_name": "data_retention",
+      "section": "10. DPP metadata",
+      "mandate_status": "M1",
+      "required": true,
+      "access_tier": "public",
+      "data_behaviour": "static",
+      "type": "object",
+      "description": "Data retention commitments for this DPP. Art. 9(2)(i): DPP available for at least the expected product lifetime. Art. 11(e): availability survives insolvency, liquidation or cessation of activity in the Union. Art. 27(3): 10-year minimum for technical documentation.",
+      "regulatory_basis": ["Art. 9(2)(i)", "Art. 11(e)", "Art. 27(3)"],
+      "properties": {
+        "available_until": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date until which this DPP is guaranteed to remain available. Minimum: expected product lifetime per Art. 9(2)(i)."
+        },
+        "technical_documentation_retained_until": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date until which full technical documentation is retained. Minimum 10 years after market placement per Art. 27(3)."
+        },
+        "continuity_provider": {
+          "type": "string",
+          "description": "Entity responsible for ensuring DPP availability after insolvency or cessation of activity per Art. 11(e). Typically the DPP service provider."
+        }
+      }
+    }
+
+  ]
+}
