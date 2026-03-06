@@ -1,102 +1,101 @@
-# open-dpp
-
-Open tools for EU Digital Product Passport compliance. No paywalls, no newsletters, no noise.
-
-**→ [View the legislation tracker](https://rhys-the-davies.github.io/open-dpp)**
-**→ [View the textile schema](https://rhys-the-davies.github.io/open-dpp/schemas/textile/schema.html)**
-
----
-
+# Open DPP
+A shared, open field schema for EU Digital Product Passports (DPPs) - starting with textiles.
+The EU's Ecodesign for Sustainable Products Regulation (ESPR) requires textile products sold in the EU to carry a digital product passport by a date to be confirmed in a forthcoming delegated act. 
+That passport needs to contain specific data about materials, supply chain, repairability, chemicals, and a lot more. 
+What it doesn't yet have is a standard technical structure for how that data should be organised.
+This schema is an attempt to build that structure in the open, so that compliance teams, brands, and developers are working from the same foundation rather than inventing their own or waiting in decision paralysis for the EC. 
 ## What's in this repo
+This repo contains three things:
+A legislation tracker that we can keep up to date with primary sources about the progress of the DPP regulations. 
+A proposed field schema for textile DPP data.
+Discussions about the above. 
+If this proves useful we can add more for the other types of products that will be included. Batteries is a likely next case so `schemas/batteries/` directory is reserved for a future implementation which has a more mature DPP framework
+## How the schema is organised
+Each field in `schema.json` describes one piece of data that belongs in a textile DPP. Every field carries the same set of properties:
 
-Two tools, maintained together.
-
-### Legislation tracker
-
-Tracks the regulatory milestones that determine when DPP obligations arrive — across four parallel EU regulatory tracks.
-
-| Track | Regulation | Key deadline |
-|---|---|---|
-| ESPR Framework | Reg. (EU) 2024/1781 | Textile DPP mandatory ~2028 |
-| Battery Passport | Reg. (EU) 2023/1542 | Mandatory 18 Feb 2027 |
-| Textile & Apparel DPP | ESPR delegated act (forthcoming) | Consultation expected 2026 |
-| CRMA Permanent Magnet Passport | Reg. (EU) 2024/1252 | Mandatory 24 May 2027 |
-
-The rule here is simple: every claim links to a primary source. No speculation, no secondary-source-as-fact. If something is uncertain or unverified, it's marked as such.
-
-The canonical data source is `data/milestones.json`. `index.html` currently embeds the data directly for portability — a future release will fetch from the JSON at runtime.
-
-### Textile DPP field schema
-
-An open field schema for ESPR-compliant textile Digital Product Passports. The textile delegated act is still pending — so rather than wait, this schema maps what the regulation already requires against what the delegated act is expected to confirm.
-
-Every field carries its regulatory basis, mandate status, access tier, data behaviour, and a plain-language description of who is responsible for it.
-
-The schema lives in `schemas/textile/` and has two forms: `schema.json` for implementation, `schema.html` for human review. A `schemas/batteries/` directory is reserved for a future implementation based on the Battery Regulation.
-
+| Property | What it means |
+|---|---|
+| `field_id` | A reference number. `3.1` means section 3, first field. |
+| `field_name` | The field's technical identifier, for use in implementation |
+| `section` | Which group of fields this belongs to |
+| `mandate_status` | Where the legal requirement comes from - see below |
+| `required` | Whether this field is mandatory right now under current ESPR text |
+| `access_tier` | Who is allowed to see this data — see below |
+| `responsible_for` | Who is responsible for inputting the data along the way |
+| `type` | The data format: text, number, true/false, structured object, or list |
+| `description` | A plain-language explanation of the field, including who is responsible for it |
+| `regulatory_basis` | The specific regulation articles this field comes from |
+The [schema.html](schemas/textile/schema.html) page renders all of this in a more human-readable format.
+## Mandate status
+Not all fields are required today. The regulation works in layers.
+| Code | Meaning |
+|---|---|
+| **M1** | Required now. The obligation exists directly in ESPR (Reg. (EU) 2024/1781). |
+| **M2** | Required in principle, details pending. The field category is established in Annex III, but the textile delegated act will confirm the exact requirements. |
+| **M3** | Required by a different regulation. The field is relevant to EU compliance, but the primary legal basis is outside ESPR — for example, the EU Deforestation Regulation or the Corporate Sustainability Due Diligence Directive. |
+| **M4** | Not currently required. Included because it is standard industry practice or likely to appear in a future delegated act. |
+When the textile delegated act is adopted, M2 fields will be updated to reflect confirmed requirements.
 ---
-
-## Repo structure
-
-```
-open-dpp/
-├── index.html              # Legislation tracker (self-contained)
-├── data/
-│   └── milestones.json     # Canonical tracker data
-├── schemas/
-│   └── textile/
-│       ├── schema.json     # Field schema (canonical)
-│       └── schema.html     # Human-readable schema viewer
-├── CONTRIBUTING.md
-├── LICENSE
-└── README.md
-```
-
+## Access tier
+Not all data in a DPP is visible to everyone. ESPR defines different access levels depending on who is asking.
+| Value | Who can see this |
+|---|---|
+| `public` | Anyone. Accessible via the QR code on the product, no login required. |
+| `authorities` | Market surveillance authorities and the European Commission only. |
+| `legitimate_interest` | Anyone with a verified legitimate interest — supply chain partners, recyclers, repair operators, researchers. |
+| `delegated_act_will_specify` | Not yet defined. The textile delegated act will confirm. |
 ---
-
-## How to use it locally
-
+## Responsible for
+The schema defines the data structure. Who actually creates, updates, or provides each piece of data is a separate question - and a more complicated one.
+That's covered in the responsibility matrix (`dpp_responsibility_matrix_v0_4.xlsx`), which maps every field to the actors responsible for it. Keeping this separate from the schema means the governance can evolve without changing the technical structure.
+The regulation recognises eight actors involved in a textile DPP:
+- **Manufacturer** — the brand or entity placing the product on the EU market under their name, even if they don't physically make it
+- **Importer** — the EU-based entity bringing non-EU products into the market; treated as manufacturer in some circumstances
+- **Authorised representative** — an EU-based entity acting formally on behalf of a non-EU manufacturer
+- **Supply chain actors** — mills, spinners, dye houses, chemical suppliers; their data obligations activate when the delegated act invokes Art. 38
+- **Professional repairer / independent operator** — repair shops, refurbishers, recyclers, waste managers; have rights to update certain fields post-sale
+- **Dealer / retailer** — responsible for making the DPP accessible to customers, but has no data creation rights
+- **EU responsible person** — required where a non-EU manufacturer has no EU importer
+- **DPP service provider** — platforms that store and serve DPP data (like AWARE); a distinct actor type with specific obligations under Art. 10(4) and Art. 11
+---
+## Contributing
+The schema is only useful if it reflects reality. If something is wrong, missing, or unclear, contributions are welcome.
+**Technical contributions** - new fields, corrections to regulatory references, sub-field additions - via pull request against `schema.json`.
+**Non-technical contributions** - questions about scope, implementation challenges, disagreements with how a field is classified. A GitHub account is required to post. Let me know if this is too confusing and we’ll work out another way. 
+Fields can be added, updated, removed or narrowed but always require a clear regulatory justification, the schema should only shrink if the regulation requires it.
+### How to use it locally
 No build step, no dependencies, no server required for the legislation tracker.
-
 ```bash
 git clone https://github.com/rhys-the-davies/open-dpp.git
 cd open-dpp
 open index.html
 ```
-
 The schema viewer fetches `schema.json` at runtime, so it needs a local server:
-
 ```bash
 python3 -m http.server 8000
 # then open http://localhost:8000/schemas/textile/schema.html
 ```
-
 ---
-
-## Contributing
-
-This project runs on contributions. We particularly need help from compliance teams, legal professionals, policy researchers, and sustainability leads at brands navigating these requirements.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidance. The short version:
-
-- **Verify a milestone** — check a primary source and confirm the tracker data is accurate
-- **Correct an error** — something is wrong or outdated, open an issue or submit a fix
-- **Add a missing milestone** — something relevant isn't tracked yet
-- **Propose a new schema field** — with regulatory basis, mandate status, and access tier
-- **Improve either tool** — the tracker or schema themselves, not just the data
-
-Browse [open issues](https://github.com/rhys-the-davies/open-dpp/issues) to find something to pick up.
-
+## Versioning
+The schema uses semantic versioning (`major.minor.patch`):
+- **Patch** — corrections to descriptions or references, no change to the field set
+- **Minor** — new fields, or reclassification of existing fields
+- **Major** — structural changes, or significant reclassification following adoption of the textile delegated act
+The current version is `0.4.0`. The schema is in draft - breaking changes are possible before `1.0.0`. Version 1.0.0 will be tagged when the textile delegated act is adopted or the schema has been validated against a live implementation.
 ---
+## Regulatory references
+| Instrument | Relevance |
+|---|---|
+| Reg. (EU) 2024/1781 (ESPR) | Primary instrument. DPP obligations across Art. 7, 9, 10, 11, 12, 27–31, 38 and Annex III. |
+| Reg. (EU) 2023/1542 (Battery Regulation) | Structural reference for schema design, particularly Annex XIII and DIN DKE Spec 99100. |
+| Reg. (EU) 1007/2011 | EU textile fibre nomenclature, used in the `fibre_composition` field. |
+| Reg. (EC) 1907/2006 (REACH) | Chemical substance obligations underpinning the substances fields. |
+| Reg. (EU) 2023/1115 (EUDR) | Raw material origin traceability for deforestation-linked commodities. |
+| Reg. (EU) 2024/1760 (CSDDD) | Social compliance due diligence basis. |
+| Reg. (EU) 2024/3015 (Forced Labour Regulation) | Facility-level disclosure obligations from 2027. |
+| Reg. (EU) 2019/1020 (Market Surveillance) | EU responsible person obligations. |
+| Union Customs Code Art. 60 | Rules of origin for `country_of_manufacture`. |
 
+—
 ## Licence
-
-Released under [CC BY-SA 4.0](LICENSE). Free to use, adapt, and redistribute with attribution, under the same licence.
-
----
-
-## About
-
-These tools were started by [AWARE™](https://aware.community) — a textile supply chain traceability platform helping brands and manufacturers prepare for DPP requirements. They are open for contribution and not affiliated with or endorsed by any regulatory body.
-
-[aware.community](https://aware.community) · [hello@aware.community](mailto:hello@aware.community)
+Released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Free to use, adapt and redistribute with attribution.
