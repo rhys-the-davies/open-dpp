@@ -59,22 +59,7 @@ The regulation recognises eight actors involved in a textile DPP:
 - **DPP service provider** — platforms that store and serve DPP data (like AWARE); a distinct actor type with specific obligations under Art. 10(4) and Art. 11
 ---
 ## Contributing
-The schema is only useful if it reflects reality. If something is wrong, missing, or unclear, contributions are welcome.
-**Technical contributions** - new fields, corrections to regulatory references, sub-field additions - via pull request against `schema.json`.
-**Non-technical contributions** - questions about scope, implementation challenges, disagreements with how a field is classified. A GitHub account is required to post. Let me know if this is too confusing and we’ll work out another way. 
-Fields can be added, updated, removed or narrowed but always require a clear regulatory justification, the schema should only shrink if the regulation requires it.
-### How to use it locally
-No build step, no dependencies, no server required for the legislation tracker.
-```bash
-git clone https://github.com/rhys-the-davies/open-dpp.git
-cd open-dpp
-open index.html
-```
-The schema viewer fetches `schema.json` at runtime, so it needs a local server:
-```bash
-python3 -m http.server 8000
-# then open http://localhost:8000/schemas/textile/schema.html
-```
+Want to add or notice somethign is wrong? Head over to the [contributing instructions]([url](https://github.com/rhys-the-davies/open-dpp?tab=contributing-ov-file)) to learn how to contribute direclty.
 ---
 ## Versioning
 The schema uses semantic versioning (`major.minor.patch`):
