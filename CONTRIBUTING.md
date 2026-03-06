@@ -1,18 +1,16 @@
 # Contributing to open-dpp
 
-Thank you for helping maintain this resource. Both tools in this repo — the legislation tracker and the textile schema — are only useful if the data is accurate. Keeping them accurate requires people who follow this legislation closely.
-
-This guide covers everything you need to contribute, regardless of your technical background.
-
----
+The schema is only useful if it reflects reality. If something is wrong, missing, or unclear, contributions are welcome.
 
 ## Two ways to contribute
 
 ### Not technical? Use GitHub Discussions
 
-If you have a question, a challenge with how a milestone or field is classified, or a disagreement with scope — open a discussion at [github.com/rhys-the-davies/open-dpp/discussions](https://github.com/rhys-the-davies/open-dpp/discussions).
+If you have a question, a challenge with how a milestone or field is classified, or a disagreement with scope - open a discussion at [github.com/rhys-the-davies/open-dpp/discussions](https://github.com/rhys-the-davies/open-dpp/discussions). 
 
-You don't need to know anything about JSON or version control. Just describe what you think is wrong or missing and why. This is also the right place for implementation questions — if you're a compliance team trying to understand how a field should be populated in practice, that context is genuinely valuable.
+Each 'card' on the schema page has a 'discuss' button that will take you to the same place. 
+
+You don't need to know anything about JSON or version control. Just describe what you think is wrong or missing and why. This is also the right place for implementation questions - if you're a compliance team trying to understand how a field should be populated in practice, that context is genuinely valuable too.
 
 ### Technical? Open a pull request
 
@@ -26,46 +24,27 @@ There are four types of contribution to the tracker, in rough order of priority.
 
 ### 1. Verify an existing milestone
 
-The most valuable thing you can do. Each milestone has a primary source link. We need people to check that link, confirm the date and description are accurate, and mark the milestone as verified.
+The most valuable thing you can do. Each milestone has a primary source link. We always welcome people to check that link, confirm the date and description are accurate, and let us know if we've missed something or if anything has changed.
 
 This is a 15-minute task for anyone who knows where to look in EU regulatory texts.
 
 ### 2. Correct an error
 
-Something is factually wrong — a date is off, a description misrepresents the legislation, a source link is broken. Open an issue describing the error and cite the correct source. If you're comfortable with GitHub, submit a pull request directly.
+Something is factually wrong - a date is off, a description misrepresents the legislation, a source link is broken. Open an issue describing the error and cite the correct source. If you're comfortable with GitHub and sure of your contribution submit a pull request directly. Discussions are always welcome. 
 
 ### 3. Add a missing milestone
 
-A relevant regulatory development isn't covered. Propose it as an issue first so we can agree it belongs before you write it up — not everything adjacent to DPPs needs to be in here.
+A relevant regulatory development isn't covered. Propose it as an issue first so we can agree it belongs before you write it up - not everything adjacent to DPPs needs to be in here.
 
 ### 4. Suggest or research a new track
 
-A whole regulatory track we're not covering. Currently out of scope but worth tracking: EU Textile Labelling Regulation revision (expected August 2026), REACH intersection with DPP data fields, member state transposition differences. Open a discussion issue to propose.
+A whole regulatory track we're not covering. Currently out of scope but worth tracking: EU Textile Labelling Regulation revision (expected August 2026), REACH intersection with DPP data fields, member state transposition differences. 
+
+Open a discussion issue to propose.
 
 ---
 
-## Citation standards
-
-Every factual claim must link to a primary source. This is non-negotiable.
-
-**Primary sources (required for any factual claim):**
-- EUR-Lex official legal texts — `eur-lex.europa.eu`
-- Official Journal of the EU
-- EC Green Forum — `green-forum.ec.europa.eu`
-- EC Have Your Say portal — `ec.europa.eu/info/law/better-regulation/have-your-say`
-- JRC preparatory studies — `susproc.jrc.ec.europa.eu`
-- European Parliament Legislative Train
-
-**Secondary sources (acceptable only to corroborate timelines, never as sole source):**
-- Law firm briefings (White & Case, Linklaters, etc.)
-- Technical analysis organisations (Intertek, SGS, Bureau Veritas)
-- Specialist publications (Circularise, Protokol, etc.)
-
-If you can only find a secondary source for a claim, that claim should be marked `expected` status and noted as unverified.
-
----
-
-## How to verify a milestone
+### How to verify a milestone
 
 1. Find a milestone marked as needing verification — check [open issues](https://github.com/rhys-the-davies/open-dpp/issues?q=is%3Aopen+label%3Averification-needed) or look for milestones without a `last_verified` date in `data/milestones.json`
 2. Follow the primary source link in the milestone
@@ -76,7 +55,7 @@ If you can only find a secondary source for a claim, that claim should be marked
 
 ---
 
-## How to add or correct a milestone
+### How to add or correct a milestone - for technical readers
 
 Each milestone in `milestones.json` follows this structure:
 
@@ -147,6 +126,26 @@ The schema uses semantic versioning (`major.minor.patch`):
 Update the `version` field in `x-meta` in `schema.json` with your PR. If you're unsure which increment applies, note it in the PR and we'll confirm.
 
 ---
+## How to use all this locally
+For now and hopefully for a while it's just a few html pages: 
+
+```bash
+git clone https://github.com/rhys-the-davies/open-dpp.git
+cd open-dpp
+open index.html
+```
+The schema viewer fetches `schema.json` at runtime, so it needs a local server:
+```bash
+python3 -m http.server 8000
+# then open http://localhost:8000/schemas/textile/schema.html
+```
+
+---
+
+## Citation standards
+
+Every factual claim must link to a primary source. This is non-negotiable. The sources used so far all come from official EU sources. If you have a primary source that is not already listed feel free to propose it but be open to discuss its validity unless it's immediately obvious. 
+---
 
 ## Submitting a pull request
 
@@ -157,17 +156,6 @@ Update the `version` field in `x-meta` in `schema.json` with your PR. If you're 
 5. Submit against `main`
 
 PRs that change factual data without citing a primary source will not be merged.
-
----
-
-## Opening an issue
-
-For anything that needs discussion before action:
-
-- **Verification issue:** title as `[Verify] Track name — Milestone title`, label `verification-needed`
-- **Correction issue:** title as `[Fix] What is wrong`, describe the error and link the correct source
-- **Addition issue:** title as `[Add] What's missing`, explain what it is and why it belongs
-- **Discussion:** title as `[Discussion] Topic`, for anything that needs consensus before action
 
 ---
 
@@ -183,4 +171,4 @@ If you want to propose coverage of another product group or regulatory track, op
 
 ## Questions
 
-Open a [GitHub Discussion](https://github.com/rhys-the-davies/open-dpp/discussions) or reach out via the project page at [rhys-the-davies.github.io/open-dpp](https://rhys-the-davies.github.io/open-dpp).
+Open a [GitHub Discussion](https://github.com/rhys-the-davies/open-dpp/discussions) 
