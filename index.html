@@ -36,16 +36,6 @@
   .topbar-link.current{color:#fff;background:rgba(255,255,255,0.12);}
   .topbar-right{margin-left:12px;font-size:11px;color:rgba(255,255,255,0.4);}
 
-  header{display:none;}
-  header .w{height:100%;display:flex;align-items:center;justify-content:space-between;}
-  .hd-left{display:flex;align-items:center;gap:10px;}
-  .hd-title{font-size:13px;font-weight:600;color:var(--earth);letter-spacing:.01em;}
-  .hd-sep{width:1px;height:14px;background:var(--border);}
-  .hd-powered{font-size:11px;color:var(--earth3);display:flex;align-items:center;gap:5px;}
-  .hd-powered a{font-weight:700;color:var(--earth3);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;font-size:10px;transition:color .15s;}
-  .hd-powered a sup{font-size:7px;font-weight:400;}
-  .hd-powered a:hover{color:var(--scarlet);}
-  .hd-right{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--earth3);}
 
   .hero{position:relative;z-index:1;border-bottom:1px solid var(--border);}
   .hero .w{padding-top:52px;padding-bottom:40px;}
@@ -89,10 +79,12 @@
   .ov-card-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
   .ov-card-name{font-size:14px;font-weight:700;color:var(--earth);margin-bottom:2px;}
   .ov-card-reg{font-size:10px;color:var(--earth3);}
+  .ov-grid-top{margin-bottom:52px;}
   .ov-card p{font-size:12px;color:var(--earth3);line-height:1.6;margin-bottom:12px;}
   .ov-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-top:1px solid var(--border2);font-size:11px;}
   .ov-row:first-of-type{border-top:none;}
   .ov-row-title{flex:1;color:var(--earth);}
+  .ov-more{font-size:10px;color:var(--earth3);margin-top:8px;}
   .ov-row-date{font-size:10px;color:var(--earth3);white-space:nowrap;}
 
   .timeline{position:relative;padding-left:30px;}
@@ -190,6 +182,33 @@
     .hero h1{font-size:19px;}
     .ntab{padding:11px 8px;font-size:10px;}
   }
+
+  .oq-section{margin-top:52px;padding-top:28px;border-top:2px solid var(--border);}
+  .oq-section-title{font-size:12px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--earth3);margin-bottom:8px;}
+  .oq-section-sub{font-size:13px;color:var(--earth3);max-width:520px;line-height:1.7;margin-bottom:20px;}
+  .oq-list{display:flex;flex-direction:column;gap:8px;}
+  .oq-row{display:flex;align-items:flex-start;gap:14px;padding:13px 16px;background:var(--white);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);transition:box-shadow .15s,border-color .15s;}
+  .oq-row:hover{box-shadow:var(--shadow-md);border-color:rgba(41,8,0,.22);}
+  .oq-id{font-size:10px;font-weight:700;font-family:monospace;color:var(--earth3);min-width:36px;padding-top:2px;flex-shrink:0;}
+  .oq-body{flex:1;min-width:0;}
+  .oq-question{font-size:13px;font-weight:600;color:var(--earth);line-height:1.4;margin-bottom:5px;}
+  .oq-meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-bottom:6px;}
+  .oq-field{font-size:10px;font-family:monospace;color:var(--earth3);background:var(--snow2);border:1px solid var(--border2);padding:1px 6px;border-radius:3px;}
+  .oq-source{font-size:10px;color:var(--earth3);}
+  .oq-assumption{font-size:11.5px;color:var(--earth2);padding:7px 10px;background:var(--snow);border-radius:5px;border-left:2px solid var(--border);line-height:1.55;}
+  .oq-assumption strong{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--earth3);display:block;margin-bottom:2px;}
+  .oq-discuss{flex-shrink:0;font-size:11px;font-weight:600;color:var(--scarlet);text-decoration:none;padding:5px 12px;border:1px solid rgba(255,51,0,.25);border-radius:5px;background:var(--scarlet-10);transition:all .15s;white-space:nowrap;align-self:flex-start;margin-top:1px;}
+  .oq-discuss:hover{background:var(--scarlet);color:#fff;border-color:var(--scarlet);}
+  @media(max-width:640px){
+    .oq-row{flex-wrap:wrap;gap:10px;}
+    .oq-discuss{margin-left:50px;}
+  }
+
+  .footer-link{color:var(--earth3);text-decoration:none;}
+  .footer-link:hover{text-decoration:underline;}
+  .footer-link-bold{color:var(--earth3);font-weight:600;text-decoration:none;}
+  .footer-link-bold:hover{text-decoration:underline;}
+  .site-footer{border-top:1px solid var(--border);padding:20px var(--gutter);font-size:11px;color:var(--earth3);}
 </style>
 </head>
 <body>
@@ -251,6 +270,21 @@ const DATA = {
       {id:"c2",date:"2026-11-24",title:"Commission adopts permanent magnet labelling format",status:"pending",desc:`Commission must adopt the implementing act defining the format for labelling permanent magnets with their critical raw material content under Article 28(2).<a href="#ref-5" class="cite">[5]</a> Deadline is 24 November 2026. As of March 2026, no implementing act has been published.`,note:`Scope is still being defined. The Commission's RESourceEU Action Plan (December 2025) proposed expanding the list of products requiring permanent magnet labelling, which the implementing act will need to account for.`},
       {id:"c3",date:"2027-05-24",title:"Permanent magnet passport mandatory",status:"expected",desc:`Products containing permanent magnets over 0.2kg must disclose the share of critical raw materials recovered from post-consumer waste.<a href="#ref-5" class="cite">[5]</a> Applies from 24 May 2027 or two years after the relevant delegated act, whichever is later. Affected categories: EV motors, wind turbines, industrial motors, heat pumps, MRI machines, and consumer electronics.`,note:null}
     ]}
+  ],
+  oqs:[
+    {id:"OQ-1",q:"Item-level or batch-level identifiers for textiles?",fields:["product_identifier"],source:"Textiles delegated act — earliest 2027",assumption:"Design for item-level. Accept batch as fallback for low-value products."},
+    {id:"OQ-2",q:"Which data carrier type will be mandated — QR code, NFC, or RFID?",fields:["data_carrier.type"],source:"Textiles delegated act",assumption:"QR code on care label as primary. Build to support NFC and RFID."},
+    {id:"OQ-3",q:"Will durability test methods be set at EU level or delegated to CEN?",fields:["durability.*"],source:"EC mandate to CEN or delegated act",assumption:"Design fields to ISO 12945 and ISO 105 as candidate methods."},
+    {id:"OQ-4",q:"What format will the EU DPP Registry API use?",fields:["dpp_metadata.registry_id"],source:"EC technical specification — expected Q2 2026",assumption:"No assumption yet. Registry operational July 2026."},
+    {id:"OQ-5",q:"Will recycled content require third-party verification or is self-declaration acceptable?",fields:["recycled_content[].verification_standard"],source:"Textiles delegated act",assumption:"Flag verification as recommended, not required, until decided."},
+    {id:"OQ-6",q:"How will tiered access be technically implemented at EU DPP Registry level?",fields:["dpp_metadata.access_tier"],source:"EC implementing acts on DPP Registry",assumption:"Use simplified three-tier model. Design for field-level access in future."},
+    {id:"OQ-7",q:"What is the defined expected product lifetime for textiles?",fields:["data_retention.retain_until"],source:"Textiles delegated act or EC guidance",assumption:"Working assumption: 5-year expected lifetime &#x2192; 15-year minimum retention."},
+    {id:"OQ-8",q:"Will the delegated act mandate a specific facility identifier standard?",fields:["supply_chain[].facility_id"],source:"Textiles delegated act",assumption:"Accept any standard. Flag OARSI and OS ID as recommended."},
+    {id:"OQ-9",q:"Will fibre composition qualifiers &#x2014; organic, recycled &#x2014; have legally defined meanings in EU law?",fields:["fibre_composition[].qualifier"],source:"Green Claims Directive or delegated act",assumption:"Use GOTS and GRS definitions as working proxy until EU standard confirmed."},
+    {id:"OQ-10",q:"When will PEF Category Rules for textiles be finalised?",fields:["carbon_footprint.*"],source:"EC JRC &#x2014; no confirmed timeline",assumption:"Carbon footprint remains extended (non-mandatory) until PEF rules confirmed."},
+    {id:"OQ-11",q:"Which product categories will the textile delegated act cover &#x2014; garments only, or bags, accessories and home textiles too?",fields:["product_name.product_category"],source:"Textiles delegated act &#x2014; earliest 2027",assumption:"Working Plan names garments and home textiles. Accessories and bags unconfirmed."},
+    {id:"OQ-12",q:"Will the delegated act reference specific certification schemes &#x2014; GOTS, GRS, Oeko-Tex &#x2014; as recognised compliance pathways?",fields:["certifications[].standard"],source:"Textiles delegated act or Green Claims Directive",assumption:"No assumption. Track Green Claims Directive adoption for early signal."},
+    {id:"OQ-13",q:"Where does liability sit when a DPP service provider collects and structures supply chain data on behalf of a manufacturer?",fields:["dpp_responsible_party.*"],source:"Textiles delegated act or future implementing acts",assumption:"All Art. 7(5) liability currently sits with the manufacturer. ESPR Art. 11 is silent on service provider liability."}
   ]
 };
 </script>
@@ -266,14 +300,13 @@ document.addEventListener('DOMContentLoaded',()=>{
     expected:{label:"Expected",      badge:"sbadge-expected", dot:"sdot-expected"}
   };
 
-  const allMs = () => DATA.tracks.flatMap(t=>t.ms.map(m=>({...m,tid:t.id,tname:t.name})));
   const nextPerTrack = () => DATA.tracks.map(t=>{
     const next=t.ms.find(m=>m.status!=='done');
     return next?{...next,tid:t.id,tname:t.name}:null;
   }).filter(Boolean);
 
   const totalMs   = DATA.tracks.reduce((n,t)=>n+t.ms.length,0);
-  const doneMs    = allMs().filter(m=>m.status==='done'||m.status==='active').length;
+  const doneMs    = DATA.tracks.flatMap(t=>t.ms).filter(m=>m.status==='done'||m.status==='active').length;
   const totalRefs = DATA.refs.filter(Boolean).length;
 
   const mCard = m => `
@@ -319,6 +352,28 @@ document.addEventListener('DOMContentLoaded',()=>{
       </div>
     </div>`;
   };
+
+  const DISCUSS = 'https://github.com/rhys-the-davies/open-dpp/discussions';
+  const oqSection = `<div class="oq-section">
+    <div class="oq-section-title">Open questions</div>
+    <p class="oq-section-sub">Questions the legislation doesn't yet answer. These will be resolved by the textile delegated act, expected 2027, or by subsequent EC implementing acts. Working assumptions are used in the schema in the meantime.</p>
+    <div class="oq-list">
+      ${DATA.oqs.map(q=>`
+        <div class="oq-row">
+          <div class="oq-id">${q.id}</div>
+          <div class="oq-body">
+            <div class="oq-question">${q.q}</div>
+            <div class="oq-meta">
+              ${q.fields.map(f=>`<span class="oq-field">${f}</span>`).join('')}
+              <span class="oq-source"> &middot; ${q.source}</span>
+            </div>
+            <div class="oq-assumption"><strong>Working assumption</strong>${q.assumption}</div>
+          </div>
+          <a class="oq-discuss" href="${DISCUSS}" target="_blank" rel="noopener">Discuss &#x2197;</a>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
 
   document.body.innerHTML = `
     <svg class="bg-circles" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
@@ -372,7 +427,7 @@ document.addEventListener('DOMContentLoaded',()=>{
           <h2>What's coming next</h2>
           <p>The next upcoming milestone from each regulatory track.</p>
         </div>
-        <div class="ov-grid" style="margin-bottom:52px">
+        <div class="ov-grid ov-grid-top">
           ${nextPerTrack().map(m=>`
             <div class="ov-card" data-view="${m.tid}">
               <div class="ov-card-hd">
@@ -407,7 +462,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                   <div class="ov-row-date">${m.date.slice(0,7)}</div>
                 </div>
               `).join('')}
-              ${t.ms.length>4?`<div style="font-size:10px;color:var(--earth3);margin-top:8px">+ ${t.ms.length-4} more &#x2192;</div>`:''}
+              ${t.ms.length>4?`<div class="ov-more">+ ${t.ms.length-4} more &#x2192;</div>`:''}
             </div>
           `).join('')}
         </div>
@@ -432,11 +487,12 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
       `).join('')}
 
+      ${oqSection}
     </div>
 
     <footer>
       <div class="site-footer">
-        Started by <a href="https://aware.community" target="_blank" rel="noopener" style="color:var(--earth3);font-weight:600;text-decoration:none;">AWARE™</a>. Open for contribution — <a href="https://github.com/rhys-the-davies/open-dpp" target="_blank" rel="noopener" style="color:var(--earth3);text-decoration:none;">view on GitHub ↗</a>
+        Started by <a href="https://aware.community" target="_blank" rel="noopener" class="footer-link-bold">AWARE™</a>. Open for contribution — <a href="https://github.com/rhys-the-davies/open-dpp" target="_blank" rel="noopener" class="footer-link">view on GitHub ↗</a>
       </div>
     </footer>
   `;
@@ -469,11 +525,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 </script>
-  <style>
-    .site-footer {
-  border-top: 1px solid var(--border);
-  padding: 20px var(--gutter);
-  font-size: 11px;
-  color: var(--earth3);
-}
+</body>
 </html>
