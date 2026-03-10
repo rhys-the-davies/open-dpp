@@ -23,8 +23,7 @@
 
   .w{max-width:var(--max);margin:0 auto;padding:0 var(--gutter);}
 
-  .bg-circles{position:fixed;top:-160px;right:-160px;width:640px;height:640px;pointer-events:none;z-index:0;}
-  .bg-circles circle{fill:none;stroke:var(--scarlet);}
+
 
   /* ── Top bar ── shared across both pages */
   .topbar{background:var(--earth);height:48px;display:flex;align-items:center;position:sticky;top:0;z-index:200;}
@@ -376,12 +375,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   </div>`;
 
   document.body.innerHTML = `
-    <svg class="bg-circles" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="460" cy="180" r="100" stroke-width="1"   opacity=".45"/>
-      <circle cx="460" cy="180" r="195" stroke-width="0.8" opacity=".30"/>
-      <circle cx="460" cy="180" r="310" stroke-width="0.6" opacity=".18"/>
-      <circle cx="460" cy="180" r="450" stroke-width="0.4" opacity=".09"/>
-    </svg>
+
 
     <div class="topbar">
       <div class="w">
