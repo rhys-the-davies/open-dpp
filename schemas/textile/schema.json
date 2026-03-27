@@ -907,6 +907,11 @@
         "registry_unique_registration_identifier": {
           "type": "string",
           "description": "Unique registration identifier issued by the EU DPP registry upon upload per Art. 13(5). Populated after registry submission."
+        },
+        "dpp_backup_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Fallback URL at which this DPP's data can be accessed if the primary operator ceases operations. Ensures continuity of access per Art. 27(7)."
         }
       }
     }

@@ -854,7 +854,29 @@
           "Art. 11(g)"
         ],
         "explanation": "Economic operator placing the product on the market creates and maintains DPP metadata — typically the manufacturer. Art. 9(1) — accurate, complete and up to date. Art. 10(1)(d) — open standards, machine-readable. Art. 11(g) — data authentication."
-      }
+      },
+      "sub_fields": [
+        {
+          "field_id": "10.1a",
+          "field_name": "dpp_metadata.dpp_backup_url",
+          "responsibilities": {
+            "manufacturer": "Creates",
+            "importer": null,
+            "authorised_rep": null,
+            "supply_chain_actors": null,
+            "professional_repairer_independent_operator": null,
+            "dealer_fsp": null,
+            "eu_responsible_person": null
+          },
+          "notes": {
+            "regulatory_basis": [
+              "Art. 27(7)",
+              "Art. 11(e)"
+            ],
+            "explanation": "Manufacturer or responsible economic operator provides a fallback URL at which DPP data can be accessed if the primary operator ceases operations. Art. 27(7) - DPP must remain accessible for at least 10 years. Art. 11(e) - availability must survive insolvency or cessation of activity."
+          }
+        }
+      ]
     },
     {
       "section": "10. DPP metadata",
