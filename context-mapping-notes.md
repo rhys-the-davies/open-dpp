@@ -1,6 +1,6 @@
 # Context mapping notes
 
-This file records every IRI mapping decision made when adding JSON-LD context to the open-dpp textile schema (v0.5.0). Review before committing.
+This file records every IRI mapping decision made when adding JSON-LD context to the open-dpp textile schema (v0.5.0).
 
 Three namespaces are used:
 
